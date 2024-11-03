@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f9;
+        }
+        .navbar {
+            background-color: #000000;
+            color: white;
+            padding: 10px;
+        }
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        .navbar a {
+            color: white;
+            margin-right: 15px;
+        }
+        #cont {
+            margin-top: 30px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">LIBRARY MANAGEMENT SYSTEM</a>
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Manage Books</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">View Students</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="adminpanel.html">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container"  id="cont">
+        <h2>Welcome, Admin!</h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h4>Manage Books</h4>
+                    <input type="text" id="newBook" placeholder="Add new book..." class="form-control mt-3" style="border-radius: 8px;">
+                    <button class="btn btn-success" onclick="addBook()">Add Book</button>
+                    <ul id="bookList" class="mt-3"></ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <h4>Assign Books to Students</h4>
+                    <select id="studentSelect" class="form-control mb-3">
+                        <option value="">Select Student</option>
+                        <option value="1">Student 1</option>
+                        <option value="2">Student 2</option>
+                    </select>
+                    <select id="bookSelect" class="form-control mb-3">
+                        <option value="">Select Book</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="assignBook()">Assign Book</button>
+                    <h5 class="mt-3">Students' Books</h5>
+                    <ul id="studentList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <h4>Notifications</h4>
+            <ul id="notifications"></ul>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2024 GECK Library. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // In-memory database for books and students
+        let books = [];
+        let students = [
+            { id: 1, name: "Student 1", books: [] },
+            { id: 2, name: "Student 2", books: [] }
+        ];
+
+        // Function to add a new book or increment count if it already exists
+        function addBook() {
+            const bookInput = document.getElementById('newBook');
+            const bookName = bookInput.value.trim();
+            if (bookName) {
+                const existingBook = books.find(book => book.name === bookName);
+                if (existingBook) {
+                    // If the book already exists, increment the count
+                    existingBook.count += 1;
+                    notify(`Incremented count for book: "${bookName}"`);
+                } else {
+                    // If the book does not exist, create a new entry with a unique ID
+                    const newBook = { id: generateUniqueId(), name: bookName, count: 1 };
+                    books.push(newBook);
+                    notify(`Added new book: "${bookName}"`);
+                }
+                bookInput.value = ''; // Clear input
+                renderBooks(); // Update the book list
+                updateBookSelect(); // Update book dropdown
+            } else {
+                alert("Please enter a book name.");
+            }
+        }
+
+        // Function to render books
+        function renderBooks() {
+            const bookList = document.getElementById('bookList');
+            bookList.innerHTML = ''; // Clear existing list
+            books.forEach(book => {
+                const li = document.createElement('li');
+                li.textContent = `${book.name} (Count: ${book.count}) `;
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-danger btn-sm';
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => deleteBook(book.id);
+                li.appendChild(deleteButton);
+                bookList.appendChild(li);
+            });
+        }
+
+        // Function to delete a book
+        function deleteBook(id) {
+            const bookToDelete = books.find(book => book.id === id);
+            if (bookToDelete) {
+                // Decrement the count
+                bookToDelete.count -= 1;
+                notify(`Decremented count for book: "${bookToDelete.name}"`);
+                
+                // If count reaches zero, remove the book from the array
+                if (bookToDelete.count === 0) {
+                    books = books.filter(book => book.id !== id);
+                    notify(`Removed book: "${bookToDelete.name}" completely.`);
+                }
+                
+                renderBooks(); // Update the book list
+                updateBookSelect(); // Update book dropdown
+            }
+        }
+
+        // Function to generate a unique ID for each book
+        function generateUniqueId() {
+            return books.length ? Math.max(...books.map(book => book.id)) + 1 : 1;
+        }
+
+        // Function to update the book selection dropdown
+        function updateBookSelect() {
+            const bookSelect = document.getElementById('bookSelect');
+            bookSelect.innerHTML = '<option value="">Select Book</option>'; // Reset options
+            books.forEach(book => {
+                if (book.count > 0) { // Only add books with count > 0
+                    const option = document.createElement('option');
+                    option.value = book.id;
+                    option.textContent = `${book.name} (Count: ${book.count})`;
+                    bookSelect.appendChild(option);
+                }
+            });
+        }
+
+        // Function to assign a book to a student
+        function assignBook() {
+            const studentSelect = document.getElementById('studentSelect');
+            const bookSelect = document.getElementById('bookSelect');
+            const studentId = parseInt(studentSelect.value);
+            const bookId = parseInt(bookSelect.value);
+
+            if (studentId && bookId) {
+                const bookToAssign = books.find(book => book.id === bookId);
+                const student = students.find(student => student.id === studentId);
+
+                if (bookToAssign && bookToAssign.count > 0) {
+                    // Assign the book to the student and decrement the count
+                    student.books.push(bookToAssign.name);
+                    bookToAssign.count -= 1;
+                    notify(`Assigned book "${bookToAssign.name}" to ${student.name}`);
+                    
+                    // Update UI
+                    renderBooks(); // Update the book list
+                    updateBookSelect(); // Update book dropdown
+                    renderStudents(); // Update student list
+                } else {
+                    notify("Book not available for assignment.");
+                }
+            } else {
+                alert("Please select a student and a book.");
+            }
+        }
+
+        // Function to render students and their assigned books
+        function renderStudents() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = ''; // Clear existing list
+            students.forEach(student => {
+                const li = document.createElement('li');
+                li.textContent = `${student.name} (Books: ${student.books.join(', ')})`;
+                studentList.appendChild(li);
+            });
+        }
+
+        // Function to notify admin
+        function notify(message) {
+            const notifications = document.getElementById('notifications');
+            const li = document.createElement('li');
+            li.textContent = message;
+            notifications.appendChild(li);
+        }
+
+        // Initialize with some data
+        renderBooks();
+        renderStudents();
+        updateBookSelect(); // Initialize book dropdown
+    </script>
+</body>
+</html>

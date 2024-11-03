@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .div {
+            text-align: center;
+            padding: 10%;
+            height: 100vh;
+            margin: 0 auto;
+            background-size: 100% 100%;
+            animation: slider 10s linear infinite;
+        }
+
+        @keyframes slider {
+            0%, 100% {background-image: url(2041540.jpg);}
+            25% {background-image: url(757855.jpg);}
+            50% {background-image: url(990432.jpg);}
+            75% {background-image: url(694740.jpg);}
+        }
+
+        h1 {
+            margin-bottom: auto;
+            font-size: 100px;
+            color: rgb(255, 255, 255);
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.421),0px 0px 20px rgba(0, 0, 0, 0.421),0px 0px 40px rgba(0, 0, 0, 0.421),0px 0px 80px rgba(0, 0, 0, 0.421);
+        }
+
+        p {
+            font-size: 17px;
+            font-weight: bolder;
+            margin-top: auto;
+            color: rgb(255, 255, 255);
+
+        }
+
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.878);
+            border-width: 10px;
+            padding: 15px;
+            position: sticky;
+        }
+
+        section {
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-suggestions {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .book-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            flex: 1 1 30%;
+            text-align: center;
+        }
+
+        .login-form, .feedback-form {
+            background: #000000;
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .login-form input, .feedback-form input, .feedback-form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        #adminlg :hover {
+            background-color: #ffffff;
+            border-radius: 10px;
+            color:#000000;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" >LIBRARY MANAGEMENT SYSTEM</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#a1">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Student Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#catelog">Catelog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#feedback">Feedback</a>
+                    </li>
+                    <li class="nav-item" style="background-color: rgba(0, 0, 0, 0.332); border-radius: 10px; border: solid 2px white;" id="adminlg">
+                        <a class="nav-link" href="adminpanel.html">Admin Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="a1" class="div">
+        <h1 style="margin-top: 50px;">WELCOME TO LIBRARY</h1>
+       <p style="padding: 80px; font-size: 40px; text-shadow: 0px 0px 10px rgb(255, 255, 255),0px 0px 20px rgb(255, 255, 255),0px 0px 40px rgb(255, 255, 255),0px 0px 80px rgb(255, 255, 255);
+">THE WORLD OF KNOWLEDGE</p>
+    </div>
+
+    <div style="padding: 50px;">
+        <h2 style="font-weight: 800; color: white; text-decoration: overline;" id="about">ABOUT</h2>
+        <p style="text-indent: 20px;">Welcome to the GECK Library! We're here to support your academic 
+            journey with extensive collections, quiet and collaborative study 
+            spaces, and expert research assistance. Explore special collections, 
+            archives, and personalized help from our librarians. Check us out to 
+            access resources that fuel both your academic success and personal growth!</p>
+    </div>
+
+    <div id="login" class="container-section" style="padding: 50px;">
+        <h2 style="color: white; text-align: center; font-weight: bold;">Student Login</h2>
+        <div class="login-form">
+            <form onsubmit="return false;">
+                <center><input type="text" id="user" placeholder="Enter Student ID" style="width: 700px;" required></center>
+                <center><input type="password" id="password" placeholder="Enter Password" style="width: 700px;" required></center>
+                <center><button type="submit" class="btn btn-primary btn-block" onclick="login()" style="width: 700px;">Login</button></center>
+                <p style="text-align: center; margin-top: 10px;">New User? <a href="Untitled-5.html">Register Here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <section id="catelog" style="padding: 50px;">
+        <h2 style="font-weight: 800; color: rgb(0, 0, 0); text-decoration: overline;">CATELOG</h2>
+        <center>
+            <input type="text" id="searchInput" placeholder="Search for books..." style="border-radius: 50px; border-width: 5px;">
+            <button onclick="searchBooks()" style="font-weight: 1000; font-size: 20px; color: white; width: 100px; height: 55px; border-radius: 50px; border-width: 0cap; background-color: rgba(67, 76, 84, 0.447);">Search</button>
+        </center>
+        
+        <div class="book-suggestions" id="bookContainer"></div>
+        <h3>Recommended Reads:</h3>
+        <div  class="book-suggestions">
+        <div class="book-card" >
+                    <h4>The Great Gatsby</h4>
+                    <p style="color: black;">by F. Scott Fitzgerald</p>
+                </div>
+                <div class="book-card">
+                    <h4>1984</h4>
+                    <p style="color: black;">by George Orwell</p>
+                </div>
+                <div class="book-card">
+                    <h4>To Kill a Mockingbird</h4>
+                    <p style="color: black;">by Harper Lee</p>
+                </div>
+            </div>
+    </section>
+
+    <div id="feedback" class="container-section" style="padding: 50px;">
+        <h2 style="font-weight: 800; color: rgb(255, 255, 255); text-decoration: overline;">Feedback/Queries</h2>
+        <div class="feedback-form">
+            <form>
+                <input type="text" placeholder="Enter your name" required>
+                <input type="email" placeholder="Enter your email" required>
+                <textarea rows="5" placeholder="Write your feedback or query" required></textarea>
+                <button type="submit" class="btn btn-dark btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="text-center" id="contact">
+        <div class="container">
+            <p class="mt-3">&copy; 2024 BTech. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample user data
+        const users = [
+            { username: 'user1', password: 'password1' },
+            { username: 'user2', password: 'password2' },
+            { username: 'user3', password: 'password3' },
+            { username: 'user4', password: 'password4' },
+        ];
+
+        const books = [
+            { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
+            { title: '1984', author: 'George Orwell' },
+            { title: 'To Kill a Mockingbird', author: 'Harper Lee' },
+            { title: 'Pride and Prejudice', author: 'Jane Austen' },
+            { title: 'The Catcher in the Rye', author: 'J.D. Salinger' },
+            { title: 'The Hobbit', author: 'J.R.R. Tolkien' },
+            { title: 'Moby Dick', author: 'Herman Melville' },
+            { title: 'War and Peace', author: 'Leo Tolstoy' },
+            { title: 'The Odyssey', author: 'Homer' },
+        ];
+
+        function login() {
+            const username = document.getElementById('user').value;
+            const password = document.getElementById('password').value;
+
+            const user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                // Successful login
+                alert('Login successful!');
+                window.location.href = 'Untitled-3.html'; // Redirect to another page
+            } else {
+                // Failed login
+                alert('Invalid username or password. Please try again.');
+            }
+        }
+
+        function searchBooks() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const bookContainer = document.getElementById('bookContainer');
+
+            // Clear previous results
+            bookContainer.innerHTML = '';
+
+            const filteredBooks = books.filter(book => 
+                book.title.toLowerCase().includes(searchInput) || 
+                book.author.toLowerCase().includes(searchInput)
+            );
+
+            if (filteredBooks.length === 0) {
+                bookContainer.innerHTML = '<p>No books found.</p>';
+            } else {
+                filteredBooks.forEach(book => {
+                    const bookCard = document.createElement('div');
+                    bookCard.className = 'book-card';
+                    bookCard.innerHTML = `<h4>${book.title}</h4><p style="color: black;">by ${book.author}</p>`;
+                    bookContainer.appendChild(bookCard);
+                });
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" 
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" 
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+    crossorigin="anonymous"></script>
+</body>
+</html>
